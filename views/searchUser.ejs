@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Users</title>
+</head>
+<body>
+    <form action="/api/user/getUser" method="get">
+        <label for="search">Search for a user:</label>
+        <input type="text" name="search" id="search" placeholder="Enter a user's name">
+        <input type="submit" value="Search">
+    </form>
+    <div>
+    <% if (UserDetails.length != 0) { %>
+        <% for (let i = 0; i < UserDetails.length; i++) { %>
+            <div><%= UserDetails[i].firstname %></div>
+            <div><%= UserDetails[i].lastname %></div>
+            <div><%= UserDetails[i].email %></div>
+            <div><%= UserDetails[i].phonenumber %></div>
+            <div><a href='/api/user/chat/<%= UserDetails[i]._id %>'>Chat now</a></div>
+        <% } %>
+    <% } else { %>
+        <div>No users found</div>
+    <% } %>
+<!-- ... (rest of the HTML) -->
+
+    </div>
+</body>
+</html>

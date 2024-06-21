@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Details</title>
+</head>
+<body>
+    <div>
+        <!-- Loop through each property image -->
+        <% for (let j = 0; j < property.images.length; j++) { %>
+            <div>
+                <% const path = property.images[j].fileName %>
+                <% const correctPath = path.replace(/\\/g, '/').replace('public/', '') %>
+                <img src="http://localhost:8800/<%= correctPath %>" alt="Property Image" style="height: 40%; width: 35%;">
+            </div>
+        <% } %>
+        
+        <div>Property Type: <%= property.propertyType %></div>
+        <div>Building Name: <%= property.buildingName %></div>
+        <div>Facing: <%= property.facing %></div>
+        <div>Contact Number: <%= property.contactNo %></div>
+        <div>Square Feet: <%= property.squareFeet %></div>
+        <div>Security Deposit: <%= property.securityDeposit %></div>
+        <div>Furnishing: <%= property.furnishing %></div>
+        <div>Flooring: <%= property.flooring %></div>
+        <div>Age of Construction: <%= property.ageOfConstruction %></div>
+        <div>Water Availability: <%= property.waterAvailability %></div>
+        <div>Number of Lifts: <%= property.numberOfLifts %></div>
+        <div>Electricity Status: <%= property.electricityStatus %></div>
+        <div>Address Street: <%= property.address.street %></div>
+        <div>Address Area: <%= property.address.area %></div>
+        <div>Address City: <%= property.address.city %></div>
+        <div>Address State: <%= property.address.state %></div>
+        <div>Postal Code: <%= property.address.postalCode %></div>
+        <div>Country: <%= property.address.country %></div>
+        
+        <div>Comments: <%= property.comments.length %></div>
+        <div>Likes: <span id="likeCount"><%= property.likes.length %></span></div> <!-- Add an ID to this element -->
+
+        <!-- Display all comments recursively -->
+        <div>
+            <h3>Comments:</h3>
+            <ul>
+                <% for (let i = 0; i < property.comments.length; i++) { %>
+                    <li>
+                        <%= property.comments[i].name %>: <%= property.comments[i].comment %>
+                        <% if (property.comments[i].comments) { %>
+                            <ul>
+                                <% for (let k = 0; k < property.comments[i].comments.length; k++) { %>
+                                    <li>
+                                        <%= property.comments[i].comments[k].name %>: <%= property.comments[i].comments[k].comment %>
+                                    </li>
+                                <% } %>
+                            </ul>
+                        <% } %>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+        
+        <form action="/property/<%= property._id %>" method="post">
+            <input type="text" name="comment" placeholder="Add a comment">
+            <button type="submit">Submit</button>
+        </form>
+        <!-- Add this code within your EJS template -->
+        <div>
+          <button id="likeButton">Like</button>
+        </div>
+    </div>
+
+    <form action="/api/calendar" method="post">
+        <label for="event">Event</label>
+        <input type="text" name="event" required>
+        <label for="endDate">End Date</label>
+        <input type="text" name="endDate" required>
+        <!-- Add a hidden input field to store the propertyId -->
+        <input type="hidden" name="propertyId" value="<%= property._id %>">
+        <button type="submit">Submit</button>
+    </form>
+    
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          const likeButton = document.getElementById('likeButton');
+          const likeCount = document.getElementById('likeCount'); // Define the likeCount variable
+          const propertyId = '<%= property._id %>';
+  
+          likeButton.addEventListener('click', async () => {
+              try {
+                  const response = await fetch(`/api/property/${propertyId}/like`, {
+                      method: 'POST',
+                      headers: {
+                          'Content-Type': 'application/json',
+                      },
+                  });
+  
+                  if (response.ok) {
+                      const data = await response.json();
+                      likeCount.textContent = data.likes; // Update the likes count
+                  }
+              } catch (error) {
+                  console.error(error);
+              }
+          });
+      });
+  </script>
+</body>
+</html>

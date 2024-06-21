@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messages</title>
+</head>
+<body>
+  <div class="messages">
+    <div class="receiverDetails"><%= receiverName %></div>
+    <% let currentDate = null; %>
+    <% for (let i = 0; i < messages.length; i++) { %>
+      <% const message = messages[i]; %>
+      <% const date = message.date.split('T')[0]; %>
+      <% if (date !== currentDate) { %>
+        <div><%= date %></div>
+        <% currentDate = date; %>
+      <% } %>
+      <div><%= message.author %>: <span><%= message.body %></span> <span><%=message.time %></span></div>
+    <% } %>
+    <div class="senderDetails"><%= senderName %></div>
+    <div class="sendMessages">
+      <form name="sendMessageForm" onsubmit="sendMessage(event)">
+        <input type="text" name="message">
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+  <script src="https://unpkg.com/socket.io-client@4.5.4/dist/socket.io.min.js"></script>
+
+  <script>
+    const socket = io('http://localhost:8800');
+
+    socket.on('connect', () => {
+      socket.on('sendMessage', (message) => {
+        console.log(message);
+        // Update the DOM with the new message
+        const date = message.time.toString().split('T')[0]; // Extract the date portion
+        console.log(date);
+        const messageElement = document.createElement('div');
+        messageElement.innerHTML = `${message.authorName}: <span>${message.body}</span> <span>${formatTime(message.time)}</span>`;
+        document.querySelector('.messages').appendChild(messageElement);
+      });
+    });
+
+    async function sendMessage(event) {
+      // Prevent the default form submission behavior
+      event.preventDefault();
+
+      // Get the message from the input field
+      const message = document.querySelector('input[name="message"]').value;
+
+      // Validate the message
+      if (message.length === 0) {
+        return;
+      }
+
+      // Send the message to the server
+      await socket.emit('sendMessage', {
+        senderId: '<%= senderId %>',
+        receiverId: '<%= receiverId %>',
+        authorName: '<%= senderName %>',
+        body: message,
+      });
+
+      // Clear the message input field
+      document.querySelector('input[name="message"]').value = '';
+    }
+
+    function formatTime(timestamp) {
+      const date = new Date(timestamp);
+      const hours = date.getHours().toString().padStart(2, '0');
+      const minutes = date.getMinutes().toString().padStart(2, '0');
+      return `${hours}:${minutes}`;
+    }
+  </script>
+</body>
+</html>

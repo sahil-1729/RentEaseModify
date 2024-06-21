@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div style="display: flex;">
+        <%= details.firstname %>
+    </div>
+    <div>
+        <%= details.lastname %>
+    </div>
+    <div>
+        <%= details.phonenumber %>
+    </div>
+    <div>
+        <%= details.email %>
+    </div>
+    <div>
+        <% for (let j = 0; j < Properties.length; j++) { %>
+        <div>
+            <% for (let i = 0; i < Properties[j].images.length; i++) { %>
+                <div>
+                    <% const path = Properties[j].images[i].fileName %>
+                    <% const correctPath = path.replace(/\\/g, '/').replace('public/','') %>
+                    <img src="http://localhost:8800/<%= correctPath %>" alt="" style="height: 20%; width: 20%;">
+                </div>
+            <% } %>
+            <div>Property Type: <%= Properties[j].propertyType %></div>
+            <div>Building Name: <%= Properties[j].buildingName %></div>
+            <div>Facing: <%= Properties[j].facing %></div>
+            <div>Contact Number: <%= Properties[j].contactNo %></div>
+            <div>Square Feet: <%= Properties[j].squareFeet %></div>
+            <div>Security Deposit: <%= Properties[j].securityDeposit %></div>
+            <div>Furnishing: <%= Properties[j].furnishing %></div>
+            <div>Flooring: <%= Properties[j].flooring %></div>
+            <div>Age of Construction: <%= Properties[j].ageOfConstruction %></div>
+            <div>Water Availability: <%= Properties[j].waterAvailability %></div>
+            <div>Number of Lifts: <%= Properties[j].numberOfLifts %></div>
+            <div>Electricity Status: <%= Properties[j].electricityStatus %></div>
+            <div>
+                street: <%= Properties[j].address.street %>
+              </div>
+            <div>area: <%= Properties[j].address.area%></div>
+            <div>city: <%= Properties[j].address.city%></div>
+            <div>state: <%= Properties[j].address.state%></div>
+            <div>postalCode: <%= Properties[j].address.postalCode%></div>
+            <div>country: <%= Properties[j].address.country%></div>
+        </div>
+        <% } %>
+    </div>
+</body>
+</html>

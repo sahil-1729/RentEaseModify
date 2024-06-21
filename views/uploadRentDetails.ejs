@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Upload</title>
+</head>
+<body>
+    <h1>Upload Property Information</h1>
+    <form action="/api/user/property" method="POST" enctype="multipart/form-data">
+        <!-- Property Type -->
+        <label for="propertyType">Property Type:</label>
+        <select id="propertyType" name="propertyType" required>
+            <option value="sell">Sell</option>
+            <option value="rent">Rent</option>
+            <option value="commercial">Commercial</option>
+        </select><br><br>
+
+        <!-- Building Name -->
+        <label for="buildingName">Building Name:</label>
+        <input type="text" id="buildingName" name="buildingName" required><br><br>
+        
+        <label for="availableFrom">Available From:</label>
+        <input type="text" id="availableFrom" name="availableFrom" required><br><br>
+        
+        <label for="noOfBalconies">No Of Balconies:</label>
+        <input type="text" id="noOfBalconies" name="noOfBalconies" required><br><br>
+        <label for="floor">Floor:</label>
+        <input type="text" id="floor" name="floor" required><br><br>
+        <!-- Facing -->
+        <label for="facing">Facing:</label>
+        <select id="facing" name="facing" required>
+            <option value="east">East</option>
+            <option value="west">West</option>
+            <option value="north">North</option>
+            <option value="south">South</option>
+            <option value="northeast">Northeast</option>
+            <option value="northwest">Northwest</option>
+            <option value="southeast">Southeast</option>
+            <option value="southwest">Southwest</option>
+        </select><br><br>
+
+        <label for="AvailableFor">Available For:</label>
+        <select id="AvailableFor" name="availableFor" required>
+            <option value="bachelor">bachelor</option>
+            <option value="married">married</option>
+            <option value="student">student</option>
+            <option value="man">man</option>
+            <option value="woman">woman</option>
+            <option value="family">family</option>
+            <option value="couple">couple</option>
+        </select><br><br>
+
+        <!-- Square Feet -->
+        <label for="squareFeet">Square Feet:</label>
+        <input type="text" id="squareFeet" name="squareFeet" required><br><br>
+
+        <!-- Security Deposit -->
+        <label for="securityDeposit">Security Deposit:</label>
+        <input type="number" id="securityDeposit" name="securityDeposit" required><br><br>
+
+        <!-- Furnishing -->
+        <label for "furnishing">Furnishing:</label>
+        <select id="furnishing" name="furnishing" required>
+            <option value="furnished">Furnished</option>
+            <option value="semi-furnished">Semi-furnished</option>
+            <option value="unfurnished">Unfurnished</option>
+        </select><br><br>
+
+        <!-- Flooring -->
+        <label for="flooring">Flooring:</label>
+        <input type="text" id="flooring" name="flooring" required><br><br>
+
+        <!-- Age of Construction -->
+        <label for="ageOfConstruction">Age of Construction:</label>
+        <input type="number" id="ageOfConstruction" name="ageOfConstruction" required><br><br>
+
+        <!-- Water Availability -->
+        <label for="waterAvailability">Water Availability:</label>
+        <input type="text" id="waterAvailability" name="waterAvailability" required><br><br>
+
+        <!-- Number of Lifts -->
+        <label for="numberOfLifts">Number of Lifts:</label>
+        <input type="number" id="numberOfLifts" name="numberOfLifts" required><br><br>
+
+        <!-- Electricity Status -->
+        <label for="electricityStatus">Electricity Status:</label>
+        <input type="text" id="electricityStatus" name="electricityStatus" required><br><br>
+
+        <!-- Landmark -->
+        <label for="landmark">Landmark:</label>
+        <input type="text" id="landmark" name="landmark"><br><br>
+
+        <!-- Number of Bedrooms -->
+        <label for="noOfBedroom">Number of Bedrooms:</label>
+        <input type="number" id="noOfBedroom" name="noOfBedroom" required><br><br>
+
+        <!-- Number of Bathrooms -->
+        <label for="noOfBathroom">Number of Bathrooms:</label>
+        <input type="number" id="noOfBathroom" name="noOfBathroom" required><br><br>
+
+        <!-- Rental Value -->
+        <label for="rentalValue">Rental Value:</label>
+        <input type="text" id="rentalValue" name="rentalValue" required><br><br>
+
+        <!-- Description -->
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"></textarea><br><br>
+
+        <!-- Address Fields -->
+        <label for="street">Street:</label>
+        <input type="text" id="street" name="address.street" required><br><br>
+
+        <label for="area">Area:</label>
+        <input type="text" id="area" name="address.area" required><br><br>
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="address.city" required><br><br>
+
+        <label for="state">State:</label>
+        <input type="text" id="state" name="address.state" required><br><br>
+
+        <label for="postalCode">Postal Code:</label>
+        <input type="text" id="postalCode" name="address.postalCode" required><br><br>
+
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="address.country" required><br><br>
+
+        <!-- Image Upload -->
+        <label for="images">Upload Images:</label>
+        <input type="file" id="images" name="images" accept="image/*" multiple required><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ... your other meta and title tags ... -->
+
+    <div style="display: flex;">
+        <!-- Loop through each property -->
+        <div >
+            <% for(let i=0;i<Properties.length;i++){ %>
+                <% for(let j=0;j<Properties[i].images.length;j++){ %>
+                    <div>
+                        <% const path = Properties[i].images[j].fileName %>
+                        <% const correctPath = path.replace(/\\/g, '/').replace('public/','') %>
+                        <img src="http://localhost:8800/<%= correctPath %>" alt="" style="height: 40%; width: 35%;">
+                    </div>
+                <% } %>
+    <div>propertyType: <%= Properties[i].propertyType%></div>
+    <div>buildingName: <a href="/property/<%= Properties[i]._id %>"><%= Properties[i].buildingName%></a></div>
+    <div>facing: <%= Properties[i].facing%></div>
+    <div>contactNo: <%= Properties[i].contactNo%></div>
+    <div>squareFeet: <%= Properties[i].squareFeet%></div>
+    <div>securityDeposit: <%= Properties[i].securityDeposit%></div>
+    <div>furnishing: <%= Properties[i].furnishing%></div>
+   <div> flooring: <%= Properties[i].flooring%></div>
+    <div>ageOfConstruction: <%= Properties[i].ageOfConstruction%></div>
+    <div>waterAvailability: <%= Properties[i].waterAvailability%></div>
+    <div>numberOfLifts: <%= Properties[i].numberOfLifts%></div>
+    <div>electricityStatus: <%= Properties[i].electricityStatus%>,</div>
+    <div>street: <%= Properties[i].address.street%></div>
+   <div> area: <%= Properties[i].address.area%></div>
+    <div>city: <%= Properties[i].address.city%></div>
+    <div>state: <%= Properties[i].address.state%></div>
+    <div>postalCode: <%= Properties[i].address.postalCode%></div>
+    <div>country: <%= Properties[i].address.country%></div>
+    <div>likes: <%= Properties[i].likes.length%></div>
+    <div>comments: <%= Properties[i].comments.length%></div>
+<% } %>
+    </div>
+    </div>
+
+</body>
+</html>

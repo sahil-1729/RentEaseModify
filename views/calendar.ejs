@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar Events</title>
+</head>
+<body>
+    <h1>Calendar Events</h1>
+    <ul>
+        <% CalendarDetails.forEach(event => { %>
+            <li>
+                <h3>Event: <%= event.event %></h3>
+                <p>Start Date: <%= event.startDate %></p>
+                <p>End Date: <%= event.endDate %></p>
+                <p>Property ID: <%= event.propertyId %></p>
+                <p>User ID: <%= event.userId %></p>
+                <form action="/api/calendar/<%= event._id %>" method="post">
+                    <button type="submit">Delete Event</button>
+                </form>
+            </li>
+        <% }); %>
+    </ul>
+</body>
+</html>
