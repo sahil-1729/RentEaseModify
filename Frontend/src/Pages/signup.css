@@ -1,0 +1,8 @@
+@media (max-width: 767px) {
+  img {
+    display: none;
+  }
+}
+img {
+  border-radius: 1.25rem;
+}

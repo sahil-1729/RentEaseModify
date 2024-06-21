@@ -23,9 +23,10 @@ import {
   Link,
   useNavigate as Navigate,
 } from "react-router-dom";
-import axios from 'axios'
+import axios from "axios";
 import Adhar from "./components/Aadhar";
 import Upload from "./Pages/UploadProperty";
+
 const theme = createTheme({
   palette: {
     black: {
