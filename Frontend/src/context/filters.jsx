@@ -2,18 +2,19 @@ import React from "react";
 import { useState } from "react";
 const FiltersContext = React.createContext();
 
-export const FiltersProvider = ({ children }) =>{ 
-  const [searchValue,setSearchValue]=useState(null)
+export const FiltersProvider = ({ children }) => {
+  const [searchValue, setSearchValue] = useState(null);
   const [rentalValue, setRentalValue] = useState(null);
   const [ageOfConstruction, setAgeOfConstruction] = useState(null);
   const [noOfBedrooms, setNoOfBedrooms] = useState(null);
   const [availableFor, setAvailableFor] = useState(null);
   const [furnishing, setfurnishing] = useState(null);
+  const [tags, setTags] = React.useState([]);
 
   return (
     <FiltersContext.Provider
-      value={
-        {searchValue,
+      value={{
+        searchValue,
         setSearchValue,
         rentalValue,
         setRentalValue,
@@ -24,8 +25,10 @@ export const FiltersProvider = ({ children }) =>{
         availableFor,
         setAvailableFor,
         furnishing,
-        setfurnishing}
-      }
+        setfurnishing,
+        tags,
+        setTags,
+      }}
     >
       {children}
     </FiltersContext.Provider>

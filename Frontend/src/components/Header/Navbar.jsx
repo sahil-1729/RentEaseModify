@@ -8,7 +8,7 @@ import {
   useNavigate as Navigate,
 } from "react-router-dom";
 import Menu from "../../MUI_components/Menu";
-const navBar = () => {
+const NavBar = () => {
   return (
     <div
       className="NavBar"
@@ -17,7 +17,7 @@ const navBar = () => {
         display: "flex",
         flexDirection: "row",
         color: "#F5FBEF",
-        marginBottom : "2rem"
+        marginBottom: "2rem",
       }}
     >
       <div
@@ -40,12 +40,7 @@ const navBar = () => {
           }}
         >
           <div style={{ padding: "0.75rem", color: "#F5FBEF" }}>
-            <Link
-              style={{
-
-              }}
-              to="/"
-            >
+            <Link style={{}} to="/">
               <a href="url">
                 <div style={{ fontWeight: "600", fontSize: "1.75rem" }}>
                   RentEase
@@ -69,7 +64,6 @@ const navBar = () => {
             </Link> */}
             <Menu name="For Tenants" />
           </div>
-          
           {/* <div style={{ padding: "0.75rem" }}> |  </div> */}
           {/* &nbsp;            &nbsp; */}
           {/* <div style={{ padding: "0.75rem", color: "black" }}>
@@ -99,28 +93,14 @@ const navBar = () => {
           <div
             style={{ padding: "1.23rem", color: "white", fontSize: "1.25rem" }}
           >
-            
-            <Link
-              style={{
-                
-              }}
-              to="/calendar"
-            >
-              
+            <Link style={{}} to="/calendar">
               <a href="url">PROPERTY VISIT </a>
             </Link>
           </div>
           <div
             style={{ padding: "1.23rem", color: "white", fontSize: "1.25rem" }}
           >
-            
-            <Link
-              style={{
-                
-              }}
-              to="/list"
-            >
-              
+            <Link style={{}} to="/list">
               <a href="url">PROPERTIES </a>
             </Link>
           </div>
@@ -154,4 +134,4 @@ const navBar = () => {
     </div>
   );
 };
-export default navBar;
+export default NavBar;

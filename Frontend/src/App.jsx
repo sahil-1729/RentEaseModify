@@ -1,21 +1,20 @@
-import { useState } from "react";
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
 import "./App.css";
-import NavBar from "./components/Header/Navbar";
-import Tabs from "./components/Search/Tab";
-import Footer from "./components/Footer/Footer";
-import Box from "@mui/material/Box";
+
+import { NavBar, Tabs, Footer } from "./components/routes";
+
 import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import PropertyList from "./Pages/PropertyList";
-import PropertySpecific from "./Pages/PropertySpecific";
-import { BigCalendar } from "./Pages/Calendar(ReactBigCal)";
-import Login from "./Pages/login";
-import Signup from "./Pages/signup";
-import OTPVerification from "./Pages/OtpVerfication";
-import Input from "./components/Search/Input";
-import Inputbox from "./components/Search/Input+Button";
+
+import {
+  PropertyList,
+  PropertySpecific,
+  BigCalendar,
+  Login,
+  Signup,
+  OTPVerification,
+  PropertyUpload,
+} from "./Pages/routes";
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -23,9 +22,7 @@ import {
   Link,
   useNavigate as Navigate,
 } from "react-router-dom";
-import axios from "axios";
-import Adhar from "./components/Aadhar";
-import Upload from "./Pages/UploadProperty";
+import AadharCardVerify from "./components/Aadhar";
 
 const theme = createTheme({
   palette: {
@@ -70,12 +67,14 @@ const Main = () => {
             style={{ width: "15%", color: "white" }}
             color="black"
           >
-            Post your property
+            <Link style={{}} to="/upload">
+              Post your property
+            </Link>
           </Button>
         </div>
         <div className="" style={{ paddingTop: "5rem" }}>
           <div className="fs-2 text-center">Verify your Tenant</div>
-          <Adhar />
+          <AadharCardVerify />
         </div>
         <br />
         <br />
@@ -94,7 +93,7 @@ function App() {
       {/* <YourComponent/> */}
       <Routes>
         <Route exact path="/" element={<Main />} />
-        <Route exact path="/upload" element={<Upload />} />
+        <Route exact path="/upload" element={<PropertyUpload />} />
         <Route exact path="/List" element={<PropertyList />} />
         <Route exact path="/specific/:id" element={<PropertySpecific />} />
         <Route exact path="/login" element={<Login />} />

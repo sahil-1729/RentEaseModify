@@ -1,10 +1,10 @@
-import React, { useState } from "react";
 import Input from "./Input";
 import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import FiltersContext from "../../context/filters";
 import { useContext } from "react";
+
 const theme = createTheme({
   palette: {
     black: {
@@ -19,13 +19,23 @@ const theme = createTheme({
 const Inputbox = () => {
   const navigate = useNavigate();
 
+  const { setTags } = useContext(FiltersContext);
+
   const handleSearch = () => {
+    setTags([]);
+    console.log("clicked");
     navigate("/list");
   };
 
   return (
     <ThemeProvider theme={theme}>
-      <div style={{ display: "flex", justifyContent: "center", flexDirection: "row" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "row",
+        }}
+      >
         <Input />
         <Button
           onClick={handleSearch}
