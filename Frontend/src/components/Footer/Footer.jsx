@@ -1,34 +1,11 @@
 // import "../App.css"
+import "./Footer.css";
+
 const Footer = () => {
   return (
-    <div
-      className="Footer"
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        backgroundColor: "#040F0F",
-        color: "#F5FBEF",
-        padding: "1rem",
-        paddingTop: "2.5rem",
-        paddingBottom: "7rem",
-        gap: "7rem",
-        color: " #F6F6F6",
-        marginTop : "2rem"
-      }}
-    >
-      <div
-        className="Section1"
-        style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
-      >
-        <h1
-          style={{
-            fontSize: 21.82,
-            fontFamily: "Poppins",
-            fontWeight: "700",
-          }}
-        >
-          RentEase
-        </h1>
+    <div className="Footer">
+      <div className="Section1">
+        <h2>RentEase</h2>
         <div
           style={{
             fontSize: 21.82,
@@ -100,15 +77,7 @@ const Footer = () => {
         className="Section2"
         style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
       >
-        <h1
-          style={{
-            fontSize: 21.82,
-            fontFamily: "Poppins",
-            fontWeight: "700",
-          }}
-        >
-          Company
-        </h1>
+        <h2>Company</h2>
         <div
           style={{
             fontSize: 21.82,
@@ -182,63 +151,18 @@ const Footer = () => {
           </a>
         </div>
       </div>
-      {/* <div className="Section3">
-        <h1
-          style={{
-            fontSize: 21.82,
-            fontFamily: "Poppins",
-            fontWeight: "700",
-          }}
-        >
-          Feedback
-        </h1>
-        <div
-          style={{
-            fontSize: 21.82,
-            fontFamily: "Poppins",
-            fontWeight: "400",
-          }}
-        >
-          <a style={{ color: "#D8F3DC" }} href="url">
-            {" "}
-            Report a problem
-          </a>
-        </div>
-        <div
-          style={{
-            fontSize: 21.82,
-            fontFamily: "Poppins",
-            fontWeight: "400",
-          }}
-        >
-          <a style={{ color: "#D8F3DC" }} href="url">
-            {" "}
-            Testimonials{" "}
-          </a>
-        </div>
-      </div> */}
-
-      {/* <div className="Line1" style={{width: '50%', height: '50%', borderLeft: 'thick white solid 0.78px'}}></div> */}
 
       <div
-        className="Section4"
+        className="Section3"
         style={{
-          width: "31%",
+          width: "28%",
           fontSize: 18.7,
           fontFamily: "Poppins",
           fontStyle: "italic",
           fontWeight: "300",
         }}
       >
-        <h1
-          style={{
-            fontSize: 21.82,
-            fontFamily: "Poppins",
-            fontWeight: "700",
-          }}
-        >
-          About RentEase
-        </h1>
+        <h2>About RentEase</h2>
         <p>
           RentEase is a comprehensive platform dedicated to streamlining the
           real estate journey for both sellers and buyers. Offering a range of

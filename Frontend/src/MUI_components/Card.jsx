@@ -9,6 +9,8 @@ import Panel from "../components/360_view/Panel";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 // import Lizard from "../Baby.jpg";
+
+import "./Card.css";
 import {
   BrowserRouter as Router,
   Routes,
@@ -28,102 +30,47 @@ export default function MultiActionAreaCard({
   noOfBedroom,
   flooring,
   furnishing,
-  ageOfConstruct
+  ageOfConstruct,
 }) {
-  flooring = `flooring : ${flooring}`
-  ageOfConstruct = `Age : ${ageOfConstruct}`
-  furnishing = `furnishing : ${furnishing}`
+  flooring = `flooring : ${flooring}`;
+  ageOfConstruct = `Age : ${ageOfConstruct}`;
+  furnishing = `furnishing : ${furnishing}`;
+
+  const temp = description.substr(0, 360) + "...";
+  description = description.length > 360 ? temp : description;
+
   return (
-    <Card sx={{ width: "800", height: "" }}>
-      <CardActionArea
-        sx={{ display: "flex", justifyContent: "center", flexDirection: "row" }}
+    <div className="bContainer">
+      <div className="container">
+        <div className="image">
+          <img src={image} />
+        </div>
+        <div className="propDetail">
+          <h5>{address}</h5>
+          <div className="numDetail">
+            <div>{rentalValue}&nbsp;/month</div>
+            <div>{squareFeet} &nbsp; sq.ft</div>
+            <div>{noOfBedroom} &nbsp; BHK</div>
+          </div>
+          <div>{description}</div>
+          <div>Tags</div>
+        </div>
+      </div>
+      {/* <div > */}
+      <Link
+        className="cta"
+        style={{
+          textDecoration: "none",
+          color: "black",
+          fontFamily: "Rubik, sans-serif",
+          fontWeight: 400,
+        }}
+        to={`/specific/${_id}`}
       >
-        <CardMedia
-          component="img"
-          height="45"
-          image={image}
-          alt="green iguana"
-          sx={{ width: "0%", marginRight: "0rem" }}
-        />
-        <CardContent
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "row",
-          }}
-        >
-          <div style={{ position: "relative", right: "3rem" }}>
-            {/* <Panel /> */}
-            {/* {console.log(image)} */}
-            <img width="500rem" height="300rem" src={image}></img>
-          </div>
-          {/* <Typography variant="body2" color="text.secondary">
-            {address}
-          </Typography> */}
-          <div style={{ width: "60%" }}>
-            <Typography gutterBottom variant="h5" component="div">
-              {address}
-            </Typography>
-            {/* <Typography> */}
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                flexDirection: "row",
-                gap: "5rem",
-              }}
-            >
-              <div>
-                <span style={{ fontWeight: "900", fontSize: "1.5rem" }}>
-                  {rentalValue}{" "}
-                </span>
-                /month
-              </div>
+        <button>Contact owner</button>
+      </Link>
 
-              <div>
-                {" "}
-                <span style={{ fontWeight: "900", fontSize: "1.5rem" }}>
-                  {squareFeet}{" "}
-                </span>
-                sq.ft
-              </div>
-
-              <div>
-                <span style={{ fontWeight: "900", fontSize: "1.5rem" }}>
-                  {noOfBedroom}{" "}
-                </span>
-                BHK
-              </div>
-            </div>
-            {/* </Typography> */}
-            <Typography variant="body2" color="text.secondary">
-              {description}
-            </Typography>
-            <br/>
-            <Stack direction="row" spacing={1}>
-              <Chip label={flooring} variant="outlined" />
-              <Chip label={ageOfConstruct} variant="outlined" />
-              <Chip label={furnishing} variant="outlined" />
-              
-            </Stack>
-          </div>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Link
-          style={{
-            textDecoration: "none",
-            color: "black",
-            fontFamily: "Rubik, sans-serif",
-            fontWeight: 400,
-          }}
-          to={`/specific/${_id}`}
-        >
-          <Button size="small" color="primary">
-            Contact owner
-          </Button>
-        </Link>
-      </CardActions>
-    </Card>
+      {/* </div> */}
+    </div>
   );
 }

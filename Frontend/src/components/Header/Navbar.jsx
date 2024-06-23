@@ -18,15 +18,18 @@ const NavBar = () => {
         flexDirection: "row",
         color: "#F5FBEF",
         marginBottom: "2rem",
+        justifyContent: "center",
+        flexWrap: "wrap",
+        gap: "5.5rem",
       }}
     >
       <div
         style={{
-          width: "75%",
+          // width: "75%",
           gap: 15.61,
           padding: "0.45rem",
           display: "flex",
-          justifyContent: "center",
+          // justifyContent: "center",
         }}
       >
         <div
@@ -37,6 +40,7 @@ const NavBar = () => {
             fontFamily: "Poppins",
             fontWeight: "500",
             fontSize: 21.82,
+            flexWrap: "wrap",
           }}
         >
           <div style={{ padding: "0.75rem", color: "#F5FBEF" }}>
@@ -86,10 +90,6 @@ const NavBar = () => {
               BLOGS
             </Link> */}
           </div>
-          {/* &nbsp; &nbsp;
-          <div style={{ padding: "0.75rem" }}>
-            <a href="url">DOCTOR</a>
-          </div> */}
           <div
             style={{ padding: "1.23rem", color: "white", fontSize: "1.25rem" }}
           >
@@ -120,16 +120,9 @@ const NavBar = () => {
           color: "white",
         }}
       >
-        <a href="/signup">
-          {/* <Woman2RoundedIcon sx={{padding : "1rem"}}  fontSize="large" /> */}
-          Sign up
-        </a>
+        <a href="/signup">Sign up</a>
         <div>|</div>
-        <a href="/login">
-          {/* <Woman2RoundedIcon sx={{padding : "1rem"}}  fontSize="large" /> */}
-          Login
-        </a>
-        {/* <img src={Women} style={{width : "8%", height : "auto"}}alt='nai'></img> */}
+        <a href="/login">Login</a>
       </div>
     </div>
   );

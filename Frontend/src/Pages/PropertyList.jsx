@@ -67,19 +67,35 @@ const PropertyList = () => {
   ]);
 
   return (
-    <div>
-      <div></div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        // gap: "10rem",
+        // paddingLeft: "14rem",
+      }}
+    >
       <NavBar />
       <br />
       <div
         style={{
           display: "flex",
-          justifyContent: "flex-end",
-          gap: "3rem",
-          paddingLeft: "10rem",
+          justifyContent: "center",
+          gap: "10rem",
+          // paddingLeft: "14rem",
+          flexWrap: "wrap",
         }}
       >
-        <div style={{ width: "50%" }}>
+        <div
+          style={
+            {
+              //  width: "50%"
+              // flexBasis: "70%",
+              // paddingLeft: "12.5rem",
+            }
+          }
+        >
           <Accordion
             head1="Budget"
             head2="Age of Property"
@@ -89,12 +105,18 @@ const PropertyList = () => {
             Slider={Slider}
           />
         </div>
-        <div style={{}}>
+        <div
+          style={
+            {
+              //  paddingRight: "12.5rem"
+            }
+          }
+        >
           <div
             style={{
               display: "flex",
               justifyContent: "space-between",
-              paddingRight: "15.5rem",
+              // paddingRight: "15.5rem",
             }}
           >
             <div
@@ -119,7 +141,7 @@ const PropertyList = () => {
           <div
             className="DisplayProd"
             style={{
-              width: "60%",
+              // width: "60%",
               display: "flex",
               justifyContent: "center",
               flexDirection: "column",

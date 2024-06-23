@@ -1,0 +1,38 @@
+img {
+  width: 400px;
+  height: 300px;
+}
+.numDetail {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.propDetail {
+  width: 70%;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1rem;
+  /* background-color: red; */
+  border: 2px solid red;
+  padding: 1rem;
+  width: 800px;
+  height: max-content;
+  border-radius: 0.5rem;
+  flex-wrap: nowrap;
+}
+h5 {
+  width: 17rem; /* the element needs a fixed width (in px, em, %, etc) */
+  overflow: hidden; /* make sure it hides the content that overflows */
+  white-space: nowrap; /* don't break the line */
+  text-overflow: ellipsis; /* give the beautiful '...' effect */
+}
+.cta {
+  align-items: end;
+}
+.bContainer {
+  /* box-shadow: -2.5px 5px #888888; */
+  /* border-radius: 0.5+rem; */
+}
