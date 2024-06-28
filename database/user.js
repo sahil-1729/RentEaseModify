@@ -6,48 +6,11 @@ const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const Property = require('./propertySchema');
 
-function formatTime(timestamp) {
-  const date = new Date(timestamp);
-  const hours = date.getHours().toString().padStart(2, '0');
-  const minutes = date.getMinutes().toString().padStart(2, '0');
-  return `${hours}:${minutes}`;
-}
-const EMAIL=process.env.EMAIL
-const PASSWORD=process.env.PASSWORD
-const RENTALTOKEN=process.env.RENTALTOKEN
-let mailTransporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: EMAIL,
-    pass: PASSWORD
-  },
-});
 
-// Function to generate OTP
-function generateOTP() {
-  var digits = '0123456789';
-  let OTP = '';
-  for (let i = 0; i < 6; i++) {
-    OTP += digits[Math.floor(Math.random() * 10)];
-  }
-  return OTP;
-}
+
 
 // Authentication middleware
-async function authenticate(req, res, next) {
-  const token = req.cookies.token;
-  console.log(token);
-  if (!token) {
-    return res.send('Please log in again.');
-  }
-  try {
-    const emailFromToken = jwt.verify(token, RENTALTOKEN);
-    req.email = emailFromToken.email; // Store email in the req object for later use
-    next();
-  } catch (error) {
-    return res.send('Please log in again.');
-  }
-}
+
 
 Router.get('/api/user/getUser', async (req, res) => {
   try {
