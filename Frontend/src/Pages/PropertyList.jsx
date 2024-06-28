@@ -10,6 +10,7 @@ import MapIcon from "@mui/icons-material/Map";
 import StreetviewIcon from "@mui/icons-material/Streetview";
 import Slider from "../MUI_components/Slider";
 import FiltersContext from "../context/filters";
+import "./PropertyList.css";
 
 const PropertyList = () => {
   const {

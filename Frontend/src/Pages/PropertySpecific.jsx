@@ -58,10 +58,16 @@ const PropertyDetails = () => {
     // Include dependencies in the array, e.g., [InputTime]
     const updateCalendar = async () => {
       try {
+        const address =
+          "Property: " +
+          propertyDetail.buildingName +
+          " | Address: " +
+          propertyDetail.address;
+        console.log("", address);
         const calendar = {
           endDate: InputDate + InputTime,
           propertyId: propertyDetail._id,
-          event: propertyDetail.buildingName,
+          event: address,
         };
         console.log(calendar);
         const response = await axios.post("/api/calendar", calendar);
@@ -73,22 +79,22 @@ const PropertyDetails = () => {
     updateCalendar();
   }, [InputTime, InputDate]);
 
-  const handleSubmission = () => {
-    const result = EventDetails.find((val) => val.Date === InputDate && val.Time === InputTime);
-    if (Submit && !result) {
-      setEventDetails((prevEventDetails) => {
-        const value = {
-          Date: InputDate,
-          Time: InputTime,
-        };
-        return [...prevEventDetails, value];
-      });
+  // const handleSubmission = () => {
+  //   const result = EventDetails.find((val) => val.Date === InputDate && val.Time === InputTime);
+  //   if (Submit && !result) {
+  //     setEventDetails((prevEventDetails) => {
+  //       const value = {
+  //         Date: InputDate,
+  //         Time: InputTime,
+  //       };
+  //       return [...prevEventDetails, value];
+  //     });
 
-      getDet(EventDetails);
+  //     getDet(EventDetails);
 
-      setSubmit(false);
-    }
-  };
+  //     setSubmit(false);
+  //   }
+  // };
 
   console.log("Event Details", EventDetails);
 
@@ -137,7 +143,7 @@ const PropertyDetails = () => {
                 <br />
                 in{"   "}
                 {propertyDetail.buildingName} {"   "}
-                {propertyDetail.address} 
+                {propertyDetail.address}
               </div>
               <div
                 className="List of Buttons"
@@ -167,7 +173,10 @@ const PropertyDetails = () => {
                   }}
                 >
                   {/* <Button sx={{color : "white"}} color="black"  variant="contained">Contact Owner</Button> <br/> */}
-                  <Modal ButtonName="Contact Owner" Content="Owner details will be sent shortly to your your registered mobile number and your registered email" />
+                  <Modal
+                    ButtonName="Contact Owner"
+                    Content="Owner details will be sent shortly to your your registered mobile number and your registered email"
+                  />
                 </div>
               </div>
             </div>
@@ -184,18 +193,18 @@ const PropertyDetails = () => {
                   display: "flex",
                   justifyContent: "flex-end",
                   gap: "1rem",
-                  justifyItems : "center",
-                  width : "50%"
+                  justifyItems: "center",
+                  width: "50%",
                 }}
               >
-                <div style={{ width: "500", height : "500" }}>
-{/* <<<<<<< HEAD */}
+                <div style={{ width: "500", height: "500" }}>
+                  {/* <<<<<<< HEAD */}
                   {/* <Panel /> */}
-{/* ======= */}
-                  {img ? <Panel Image={img}/> : ""} 
-{/* >>>>>>> 29a814e38fb93c529e00fad359d62fe662927809 */}
+                  {/* ======= */}
+                  {img ? <Panel Image={img} /> : ""}
+                  {/* >>>>>>> 29a814e38fb93c529e00fad359d62fe662927809 */}
                 </div>
-                <div style={{width : "500", height : "500"}}>
+                <div style={{ width: "500", height: "500" }}>
                   <Panel Image={propertyDetail.images[1].fileName} />
                   {/* <img src={propertyDetail.images[1].fileName} alt="failed" /> */}
                 </div>
@@ -206,7 +215,7 @@ const PropertyDetails = () => {
                   justifyContent: "center",
                   flexDirection: "row",
                   gap: "3rem",
-                  paddingTop : "3.25rem"
+                  paddingTop: "3.25rem",
                 }}
               >
                 <div>
@@ -305,7 +314,11 @@ const PropertyDetails = () => {
               }}
             >
               <iframe
-                src={propertyDetail.Link?propertyDetail.Link:"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.941589046335!2d72.82919524161468!3d19.066305604957062!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c913b48697ed%3A0x267fd8fe3e648ab8!2sCelestial%20Tower%2C%2015th%20Rd%2C%20Khar%20West%2C%20Mumbai%2C%20Maharashtra%20400052!5e0!3m2!1sen!2sin!4v1699502022952!5m2!1sen!2sin"}
+                src={
+                  propertyDetail.Link
+                    ? propertyDetail.Link
+                    : "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.941589046335!2d72.82919524161468!3d19.066305604957062!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c913b48697ed%3A0x267fd8fe3e648ab8!2sCelestial%20Tower%2C%2015th%20Rd%2C%20Khar%20West%2C%20Mumbai%2C%20Maharashtra%20400052!5e0!3m2!1sen!2sin!4v1699502022952!5m2!1sen!2sin"
+                }
                 width="85%"
                 height="450"
                 style={{ border: "0" }}

@@ -7,37 +7,37 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleLogin } from "@react-oauth/google";
 import { useGoogleLogin } from "@react-oauth/google";
 
-function GoogleAuth() {
-  const login = useGoogleLogin({
-    onSuccess: (tokenResponse) => console.log(tokenResponse),
-  });
-  return (
-    <div
-      style={{
-        textAlign: "center",
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: "column",
-      }}
-    >
-      <div>OR</div>
-      {/* <GoogleLogin
-        onSuccess={(credentialResponse) => {
-          console.log(credentialResponse);
-        }}
-        onError={() => {
-          console.log("Login Failed");
-        }}
-      /> */}
-      <button
-        onClick={() => login()}
-        className="btn btn-lg btn-danger w-100 fs-6"
-      >
-        Sign in with Google
-      </button>
-    </div>
-  );
-}
+// function GoogleAuth() {
+//   const login = useGoogleLogin({
+//     onSuccess: (tokenResponse) => console.log(tokenResponse),
+//   });
+//   return (
+//     <div
+//       style={{
+//         textAlign: "center",
+//         display: "flex",
+//         justifyContent: "center",
+//         flexDirection: "column",
+//       }}
+//     >
+//       <div>OR</div>
+//       {/* <GoogleLogin
+//         onSuccess={(credentialResponse) => {
+//           console.log(credentialResponse);
+//         }}
+//         onError={() => {
+//           console.log("Login Failed");
+//         }}
+//       /> */}
+//       <button
+//         onClick={() => login()}
+//         className="btn btn-lg btn-danger w-100 fs-6"
+//       >
+//         Sign in with Google
+//       </button>
+//     </div>
+//   );
+// }
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -68,7 +68,7 @@ function Login() {
   };
 
   return (
-    <GoogleOAuthProvider clientId="829142529297-qihvbteiipb02m0gec5g0bfmhl6vn47b.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId="">
       <div className="container d-flex justify-content-center align-items-center min-vh-100">
         <div className="row border rounded-5 p-3 bg-white shadow">
           <div className="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
@@ -136,7 +136,7 @@ function Login() {
                 </small>
               </div>
             </div>
-            <GoogleAuth />
+            {/* <GoogleAuth /> */}
           </div>
         </div>
       </div>

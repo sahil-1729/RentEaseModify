@@ -41,7 +41,7 @@ export default function MultiActionAreaCard({
 
   return (
     <div className="bContainer">
-      <div className="container">
+      <div className="scontainer">
         <div className="image">
           <img src={image} />
         </div>

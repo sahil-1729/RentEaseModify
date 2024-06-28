@@ -10,7 +10,7 @@ img {
 .propDetail {
   width: 70%;
 }
-.container {
+.scontainer {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -35,4 +35,10 @@ h5 {
 .bContainer {
   /* box-shadow: -2.5px 5px #888888; */
   /* border-radius: 0.5+rem; */
+}
+@media (max-width: 767px) {
+  img {
+    width: 50%;
+    height: 50%;
+  }
 }
