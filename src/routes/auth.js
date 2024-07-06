@@ -2,14 +2,10 @@ const express=require('express')
 const Router=express.Router()
 const authController=require('../controller/authController')
 
-Router.get('/signup',authController)
-Router.post('/signup',authController)
-Router.get('/otp',authController)
-Router.post('/otp',authController)
-Router.get('/login',authController)
-Router.post('/login',authController)
-Router.post('/changePassword',authController)
-Router.post('/logout',authController)
+Router.post('/signup',authController.signup)
+Router.post('/login',authController.login)
+Router.post('/changePassword',authController.changepassword)
+Router.post('/logout',authController.logout)
 
 
 module.exports=Router

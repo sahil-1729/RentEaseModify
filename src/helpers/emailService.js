@@ -20,9 +20,11 @@ async function sendMail({to,subject,text}){
             if(error){
                 return error
             }
+
             return resolve(info)
         })
-    })
+    }).then("send to the user").catch("error occurred here ")
 }
+
 
 module.exports=sendMail

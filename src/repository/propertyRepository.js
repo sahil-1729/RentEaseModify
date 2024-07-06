@@ -1,11 +1,12 @@
 const Property = require("../models/property");
+
 class PropertyRepository {
   async getProperties() {
     return await Property.find();
   }
 
   async getPropertyByPropertyId(id) {
-    return await Property.find(id);
+    return await Property.findById(id);
   }
 
   async getPropertyByUserPhoneNumber(contactNo) {
@@ -28,4 +29,4 @@ class PropertyRepository {
   }
 }
 
-module.exports=PropertyRepository;
+module.exports = PropertyRepository;
