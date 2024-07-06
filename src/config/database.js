@@ -1,14 +1,18 @@
-const mongoose=require("mongoose")
-const DBURL=process.env.DBURL
-mongoose.connect(DBURL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-const db = mongoose.connection;
+const mongoose = require("mongoose");
+const DBURL = process.env.DBURL;
 
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-  console.log('Connected to the database');
-});
+const connectDB = async () => {
+  try {
+    await mongoose.connect(DBURL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds instead of 30 seconds
+    });
+    console.log("Connected to the database");
+  } catch (err) {
+    console.error("Error connecting to the database:", err.message);
+    process.exit(1); // Exit process with failure
+  }
+};
 
-module.exports=db
+module.exports = connectDB();

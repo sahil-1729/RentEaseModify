@@ -1,5 +1,7 @@
-const mongoose = require("../config/database");
+const mongoose = require("mongoose");
 const formatDateTime = require("../helpers/formatDateTime");
+const {hashPassword}=require("../helpers/hashingService")
+
 const userSchema = new mongoose.Schema({
   firstname: {
     required: true,
@@ -12,10 +14,11 @@ const userSchema = new mongoose.Schema({
   phonenumber: {
     required: true,
     type: String,
-    minlength: 10, // Corrected typo: changed 'minLength' to 'minlength'
-    maxlength: 10, // Corrected typo: changed 'max' to 'maxlength'
+    minlength: 10,
+    maxlength: 10,
   },
   email: {
+    unique:true,
     required: true,
     type: String,
   },
@@ -26,6 +29,7 @@ const userSchema = new mongoose.Schema({
   },
   isAdmin: {
     required: true,
+    type: Boolean,
     default: false,
   },
   calendar: [
@@ -56,11 +60,21 @@ const userSchema = new mongoose.Schema({
   ],
 });
 
-const User = mongoose.model("User", userSchema);
-User.then(() => {
-  console.log("User model created");
-}).catch((err) => {
-  console.log(err);
+// Pre-save middleware to hash the password
+userSchema.pre("save", async function (next) {
+  const user = this;
+  if (user.isNew || user.isModified("password")) {
+    try {
+      user.password = await hashPassword(user.password);
+      next();
+    } catch (err) {
+      next(err);
+    }
+  } else {
+    next();
+  }
 });
+
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;

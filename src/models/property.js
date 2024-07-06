@@ -147,10 +147,4 @@ const propertySchema = new mongoose.Schema({
 });
 
 const Property = mongoose.model('Property', propertySchema);
-
-Property.then(()=>{
-    console.log("Property model created")
-}).catch((err)=>{
-    console.log(err)
-})
 module.exports = Property;

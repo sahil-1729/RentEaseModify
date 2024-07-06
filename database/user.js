@@ -5,13 +5,7 @@ const { User,Message } = require('./database');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const Property = require('./propertySchema');
-
-
-
-
 // Authentication middleware
-
-
 Router.get('/api/user/getUser', async (req, res) => {
   try {
     const searchQuery = req.query.search;

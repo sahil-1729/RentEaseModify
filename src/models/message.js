@@ -1,4 +1,4 @@
-const mongoose = require("../config/database");
+const mongoose = require("mongoose");
 const messageSchema = new mongoose.Schema(
   {
     members: [
@@ -31,10 +31,5 @@ const messageSchema = new mongoose.Schema(
 );
 
 const Message = mongoose.model("Message", messageSchema);
-Message.then(() => {
-  console.log("Message model created");
-}).catch((err) => {
-  console.log(err);
-});
 
 module.exports = Message;
