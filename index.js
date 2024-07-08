@@ -36,7 +36,7 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.use('/admin',AdminRouter)
 app.use('/auth',AuthRouter)
-//app.use('/calendar',CalendarRouter)
+app.use('/calendar',CalendarRouter)
 app.use('/property',PropertyRouter)
 //app.use('/user',UserRouter)
 
