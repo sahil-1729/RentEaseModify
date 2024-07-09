@@ -3,10 +3,13 @@ const Router = express.Router();
 const propertyController = require("../controller/propertyController");
 const userAuthenticate = require("../middleware/userAuthenticate");
 const configureMulterStorage = require("../helpers/multerHelper");
+const path=require("path")
+const upload = configureMulterStorage("public");
 
-const upload = configureMulterStorage("/public");
-
-Router.get("/", propertyController.getProperties);
+//Router.get("/", propertyController.getProperties);
+Router.get("/",userAuthenticate,(req,res)=>{
+  res.render("uploadRentDetails")
+})
 Router.get("/id/:id", propertyController.getPropertyByPropertyId);
 Router.get(
   "/contactNo/:contactNo",

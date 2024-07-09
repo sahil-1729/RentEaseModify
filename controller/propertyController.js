@@ -3,6 +3,9 @@ const PropertyRepository = require("../repository/propertyRepository");
 const UserRepository = require("../repository/userRepository");
 const propertyRepo = new PropertyRepository();
 const userRepo = new UserRepository();
+const { deleteFiles } = require("../helpers/fileHelper");
+const path = require("path");
+
 const getProperties = async (req, res) => {
   try {
     const properties = await propertyRepo.getProperties();
@@ -30,9 +33,7 @@ const getPropertyByPropertyId = async (req, res) => {
 const getPropertyByUserPhoneNumber = async (req, res) => {
   try {
     const contactNo = req.params.contactNo;
-    const properties = await propertyRepo.getPropertyByUserPhoneNumber(
-      contactNo
-    );
+    const properties = await propertyRepo.getPropertyByUserPhoneNumber(contactNo);
     res.status(200).send(properties);
   } catch (err) {
     console.error(err);
@@ -168,10 +169,15 @@ const updateProperty = async (req, res) => {
 const deleteProperty = async (req, res) => {
   try {
     const id = req.params.id;
-    const delProperty = await propertyRepo.deleteProperty(id);
-    if (!delProperty) {
+    const property = await propertyRepo.getPropertyByPropertyId(id);
+
+    if (!property) {
       return res.status(404).send("Property not found");
     }
+
+    await deleteFiles(property.images);
+    const delProperty = await propertyRepo.deleteProperty(id);
+
     res.status(200).send("Property deleted");
   } catch (err) {
     console.error(err);
