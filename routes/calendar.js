@@ -12,7 +12,7 @@ Router.get("/:id",calendarController.readCalendarById)
 
 Router.post("/",calendarController.createCalendarEvent)
 
-Router.put("/",calendarController.updateCalendarEvent)
+Router.put("/:id",calendarController.updateCalendarEvent)
 
 Router.delete("/:id",calendarController.deleteCalendarEventById)
 
