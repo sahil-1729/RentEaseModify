@@ -26,8 +26,9 @@ const login = async (req, res) => {
 
     req.session.user = {
       email: user.email,
+      id: user._id, // Include additional user info as needed
     };
-    res.status(200).send("Logged in successfully");
+    res.status(200).json({ message: "Logged in successfully" });
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal server error");
@@ -49,7 +50,11 @@ const signup = async (req, res) => {
     const OTP = generateOTP();
     const timeStamp = Date.now();
 
-    sendMail({ to: email, subject: "Email verification", text: `Hi ${firstname} ${lastname}, your OTP for Rentease is ${OTP}` });
+    sendMail({
+      to: email,
+      subject: "Email verification",
+      text: `Hi ${firstname} ${lastname}, your OTP for Rentease is ${OTP}`,
+    });
 
     tempUsers.set(email, { firstname, lastname, phonenumber, password, OTP, timeStamp });
     res.status(201).send("OTP is sent to your email");
@@ -89,11 +94,16 @@ const otpverification = async (req, res) => {
       phonenumber: tempUser.phonenumber,
     });
 
+    if (!newUser) {
+      return res.status(500).send("User registration failed");
+    }
+
     req.session.user = {
       email: newUser.email,
+      id: newUser._id, // Include additional user info as needed
     };
     tempUsers.delete(email);
-    res.status(200).send("User is registered successfully");
+    res.status(200).json({ message: "User is registered successfully" });
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal server error");
@@ -122,6 +132,8 @@ const changepassword = async (req, res) => {
     const updateUser = await userRepo.updateUser(user._id, user);
     if (updateUser) {
       res.status(200).send("Password changed successfully");
+    } else {
+      res.status(500).send("Failed to update password");
     }
   } catch (err) {
     console.log(err);

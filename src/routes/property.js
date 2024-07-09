@@ -12,6 +12,7 @@ Router.get(
   "/contactNo/:contactNo",
   propertyController.getPropertyByUserPhoneNumber
 );
+
 Router.post(
   "/",
   userAuthenticate,

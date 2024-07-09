@@ -5,9 +5,9 @@ const app = express();
 const connectDB=require('./src/config/database')
 const AdminRouter=require('./src/routes/admin')
 const AuthRouter=require('./src/routes/auth')
-// const CalendarRouter=require('./src/routes/calendar')
+const CalendarRouter=require('./src/routes/calendar')
 const PropertyRouter=require('./src/routes/property')
-// const UserRouter=require('./src/routes/user')
+const UserRouter=require('./src/routes/user')
 //const http = require('http');
 const path = require('path');
 //const server = http.createServer(app);
@@ -30,6 +30,8 @@ app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
 
+
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
@@ -38,7 +40,7 @@ app.use('/admin',AdminRouter)
 app.use('/auth',AuthRouter)
 app.use('/calendar',CalendarRouter)
 app.use('/property',PropertyRouter)
-//app.use('/user',UserRouter)
+app.use('/user',UserRouter)
 
 
 //module.exports = server; // Export the HTTP server

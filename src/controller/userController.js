@@ -131,11 +131,12 @@ const deleteUser = async (req, res) => {
 
 const userProfile = async (req, res) => {
   try {
-    const id = req.params.id;
-    if (!id) {
-      return res.status(400).send("ID is required");
+    const email=req.email;
+    if (!email) {
+      return res.status(400).send("Please login first");
     }
-    const user = await userRepo.getUserById(id);
+    const user = await userRepo.getUserByEmail(email);
+    console.log(user)
     return checkUser(user)
       ? res.status(200).send(user)
       : res.status(404).send("User not found");
