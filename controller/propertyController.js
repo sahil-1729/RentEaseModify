@@ -1,32 +1,54 @@
 const Property = require("../models/property");
 const PropertyRepository = require("../repository/propertyRepository");
 const UserRepository = require("../repository/userRepository");
+const propertyFilterRepository=require("../repository/propertyFilterRepository")
 const propertyRepo = new PropertyRepository();
 const userRepo = new UserRepository();
+const propertyFilterRepo=new propertyFilterRepository()
 const { deleteFiles } = require("../helpers/fileHelper");
 const path = require("path");
+const { addTheUrl } = require("../helpers/urlHelper");
 
 const getProperties = async (req, res) => {
   try {
-    const properties = await propertyRepo.getProperties();
-    res.status(200).send(properties);
+    let properties = await propertyRepo.getProperties();
+    properties=addTheUrl(req,properties)
+    res.status(200).json(properties);
   } catch (err) {
     console.error(err);
-    res.status(500).send("Internal server error");
+    res.status(500).json({message:"Internal Server Error"});
   }
 };
+
+const getPropertyByFilters=async (req,res)=>{
+  try{
+    const filters=req.query.filters?JSON.parse(req.query.filters):{};
+    const sortBy=req.query.sortBy?JSON.parse(req.query.sortBy):null;
+    let properties=await propertyFilterRepo.getPropertiesBasedOnFilters(filters,sortBy)
+    if(!properties){
+      res.status(404).json({message:"No property found"})
+    }
+    properties=addTheUrl(req,properties)
+    res.status(200).json(properties)
+
+  }catch(err){
+    console.log(err)
+    res.status(500).json({message:"Internal Server Error"});
+  }
+}
 
 const getPropertyByPropertyId = async (req, res) => {
   try {
     const id = req.params.id;
-    const property = await propertyRepo.getPropertyByPropertyId(id);
+    let property = await propertyRepo.getPropertyByPropertyId(id);
     if (!property) {
-      return res.status(404).send("Property not found");
+      return res.status(404).json({message:"Property not found"});
     }
-    res.status(200).send(property);
+    property=addTheUrl(req,[property])[0]
+    res.status(200).json(property);
   } catch (err) {
     console.error(err);
-    res.status(500).send("Internal server error");
+    res.status(500).json({message:"Internal Server Error"});;
   }
 };
 
@@ -34,10 +56,11 @@ const getPropertyByUserPhoneNumber = async (req, res) => {
   try {
     const contactNo = req.params.contactNo;
     const properties = await propertyRepo.getPropertyByUserPhoneNumber(contactNo);
-    res.status(200).send(properties);
+    properties=addTheUrl(req,properties)
+    res.status(200).json(properties);
   } catch (err) {
     console.error(err);
-    res.status(500).send("Internal server error");
+    res.status(500).json({message:"Internal Server Error"});;
   }
 };
 
@@ -46,7 +69,7 @@ const createProperty = async (req, res) => {
     const email = req.email;
     const findUser = await userRepo.getUserByEmail(email);
     if (!findUser) {
-      return res.status(400).send("User not found");
+      return res.status(400).json({message:"User not found"});
     }
     const contactNo = findUser.phonenumber;
     const {
@@ -113,7 +136,7 @@ const createProperty = async (req, res) => {
       !address.postalCode ||
       !address.country
     ) {
-      return res.status(400).send("Please fill out all the details.");
+      return res.status(400).json({message:"Please fill out all the details."});
     }
 
     const propertyDetails = new Property({
@@ -143,10 +166,10 @@ const createProperty = async (req, res) => {
     });
 
     await propertyRepo.createProperty(propertyDetails);
-    res.status(201).send("Successfully uploaded property");
+    res.status(201).json({message:"Successfully uploaded property"});
   } catch (err) {
     console.error(err);
-    res.status(500).send("Internal server error");
+    res.status(500).json({message:"Internal Server Error"});;
   }
 };
 
@@ -154,15 +177,15 @@ const updateProperty = async (req, res) => {
   try {
     const id = req.params.id;
     if (!id) {
-      return res.status(404).send("Property not found");
+      return res.status(404).json({message:"Property not found"});
     }
 
     const updatedProperty = req.body;
     const updateData = await propertyRepo.updateProperty(id, updatedProperty);
-    res.status(200).send(updateData);
+    res.status(200).json({message:"Property has been updated"});
   } catch (err) {
     console.error(err);
-    res.status(500).send("Internal server error");
+    res.status(500).json({message:"Internal Server Error"});;
   }
 };
 
@@ -172,16 +195,16 @@ const deleteProperty = async (req, res) => {
     const property = await propertyRepo.getPropertyByPropertyId(id);
 
     if (!property) {
-      return res.status(404).send("Property not found");
+      return res.status(404).json({message:"Property not found"});
     }
 
     await deleteFiles(property.images);
     const delProperty = await propertyRepo.deleteProperty(id);
 
-    res.status(200).send("Property deleted");
+    res.status(200).json({message:"Property deleted"});
   } catch (err) {
     console.error(err);
-    res.status(500).send("Internal server error");
+    res.status(500).json({message:"Internal Server Error"});;
   }
 };
 
@@ -189,6 +212,7 @@ module.exports = {
   getProperties,
   getPropertyByPropertyId,
   getPropertyByUserPhoneNumber,
+  getPropertyByFilters,
   createProperty,
   updateProperty,
   deleteProperty,

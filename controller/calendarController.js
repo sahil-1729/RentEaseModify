@@ -16,7 +16,7 @@ const createCalendarEvent = async (req, res) => {
   
     try {
       const calendarDetails = await calendarRepo.readCalendar();
-      res.status(200).send(calendarDetails);
+      res.status(200).json(calendarDetails);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
@@ -29,7 +29,7 @@ const createCalendarEvent = async (req, res) => {
   
     try {
       const calendarEvent = await calendarRepo.readCalendarById(eventId);
-      res.status(200).send(calendarEvent);
+      res.status(200).json(calendarEvent);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
