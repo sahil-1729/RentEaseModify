@@ -66,7 +66,6 @@ const createCalendarEvent = async (req, res) => {
   const deleteCalendarEventDetails = async (req, res) => {
     const { event, endDate } = req.body;
     const calendarRepo = req.calendarRepo;
-  
     try {
       await calendarRepo.deleteCalendarEventDetails(event, endDate);
       res.status(200).json({ message: 'Calendar event deleted successfully' });

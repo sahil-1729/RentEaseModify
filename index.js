@@ -8,6 +8,7 @@ const AuthRouter=require('./routes/auth')
 const CalendarRouter=require('./routes/calendar')
 const PropertyRouter=require('./routes/property')
 const UserRouter=require('./routes/user')
+const propertyLCVRouter=require('./routes/propertyLCV')
 //const http = require('http');
 const path = require('path');
 //const server = http.createServer(app);
@@ -31,7 +32,6 @@ app.listen(port, () => {
 });
 
 
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
@@ -39,7 +39,8 @@ app.set('view engine', 'ejs');
 app.use('/admin',AdminRouter)
 app.use('/auth',AuthRouter)
 app.use('/calendar',CalendarRouter)
-app.use('/property',PropertyRouter)
+app.use('/properties',PropertyRouter)
+app.use('/property',propertyLCVRouter)
 app.use('/user',UserRouter)
 
 

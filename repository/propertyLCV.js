@@ -7,9 +7,10 @@ class PropertyLCV {
   constructor(email, id, token) {
     this.id = id;
     this.email = email;
-    this.token = token; // Token from the cookie
+    this.token = token; 
     this.user = null;
     this.property = null;
+    this.name = null;
   }
 
   async init() {
@@ -22,13 +23,14 @@ class PropertyLCV {
     } else {
       this.property = property;
       this.user = user;
+      this.name = this.user.firstname + " " + this.user.lastname;
     }
   }
 
-  async likeProperty(name) {
-    const propertyLike = this.property.likes.find((like) => like.name === name);
+  async likeProperty() {
+    const propertyLike = this.property.likes.find((like) => like.name === this.name);
     if (!propertyLike) {
-      this.property.likes.push({ name });
+      this.property.likes.push({ name: this.name });
       await this.property.save();
     } else {
       throw new Error("You already liked this property");
@@ -40,11 +42,10 @@ class PropertyLCV {
   }
 
   async createComment(comment) {
-    const name = this.user.firstname + " " + this.user.lastname;
     if (!comment) {
       throw new Error("Please add a comment");
     }
-    this.property.comments.push({ name, comment });
+    this.property.comments.push({ name: this.name, comment });
     await this.property.save();
   }
 
@@ -52,7 +53,7 @@ class PropertyLCV {
     const commentToUpdate = this.property.comments.find(
       (c) =>
         c.comment === oldComment &&
-        c.name === this.user.firstname + " " + this.user.lastname
+        c.name === this.name
     );
     if (!commentToUpdate) {
       throw new Error("No comment found");
@@ -62,9 +63,9 @@ class PropertyLCV {
     }
   }
 
-  async deleteComment(name, comment) {
+  async deleteComment(comment) {
     const commentIndex = this.property.comments.findIndex(
-      (c) => c.comment === comment && name === c.name
+      (c) => c.comment === comment && c.name === this.name
     );
     if (commentIndex === -1) {
       throw new Error("Comment not found");
@@ -79,8 +80,9 @@ class PropertyLCV {
     if (!hasViewed) {
       this.property.views.push({ token: this.token });
       await this.property.save();
+    } else {
+      throw new Error("Already viewed today");
     }
-    return this.property.views.length;
   }
 }
 

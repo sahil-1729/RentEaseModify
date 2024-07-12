@@ -23,4 +23,5 @@ Router.post(
 Router.put("/:id", userAuthenticate, propertyController.updateProperty);
 Router.delete("/:id", userAuthenticate, propertyController.deleteProperty);
 
+
 module.exports = Router;
