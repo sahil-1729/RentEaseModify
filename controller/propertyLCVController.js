@@ -1,5 +1,3 @@
-const PropertyLCV = require("../repository/propertyLCV");
-
 const likeProperty = async (req, res) => {
   try {
     const propertyLCVRepo = req.propertyLCVRepo;
