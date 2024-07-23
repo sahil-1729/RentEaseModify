@@ -51,10 +51,11 @@ function Login() {
     setPassword(event.target.value);
   };
 
+  const backendUrl=import.meta.env.VITE_BACKEND_URL
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("/api/user/login", {
+      const response = await axios.post(`${backendUrl}/auth/login`, {
         email,
         password,
       });

@@ -13,6 +13,8 @@ import NavBar from "../components/Header/Navbar";
 import Footer from "../components/Footer/Footer";
 
 const PropertyUpload = () => {
+
+  const backendUrl=import.meta.env.VITE_BACKEND_URL
   return (
     <div>
       <NavBar />
@@ -21,7 +23,7 @@ const PropertyUpload = () => {
           Upload Property Information
         </Typography>
         <form
-          action="/api/user/property"
+          action={`${backendUrl}/properties`}
           method="POST"
           encType="multipart/form-data"
         >

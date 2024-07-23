@@ -17,6 +17,7 @@ import Divider from "@mui/material/Divider";
 import Panel from "../components/360_view/Panel";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+axios.defaults.withCredentials=true
 const theme = createTheme({
   palette: {
     black: {
@@ -27,25 +28,33 @@ const theme = createTheme({
     },
   },
 });
-
+const backendUrl=import.meta.env.VITE_BACKEND_URL
 const PropertyDetails = () => {
   const [propertyDetail, setPropertyDetail] = useState({});
-  const [InputTime, setInputTime] = useState(""); // Provide a default value or handle null values
-  const [InputDate, setInputDate] = useState(""); // Provide a default value or handle null values
+  const [InputTime, setInputTime] = useState();
+  const [InputDate, setInputDate] = useState();
   const [Submit, setSubmit] = useState(false);
   const [EventDetails, setEventDetails] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [img, setImg] = useState("");
+
+  const formatAddress = (address) => {
+    if (!address) return '';
+    return `${address.street}, ${address.area}, ${address.city}, ${address.state}, ${address.postalCode}, ${address.country}`;
+  };
 
   useEffect(() => {
     const property = async () => {
       try {
         const id = window.location.href.split("/");
         console.log(id);
-        const response = await axios.get(`/api/property/${id[4]}`);
-        setPropertyDetail(response.data);
-        console.log(response.data);
-        setImg(response.data.images[0].fileName); // Fix this line to use the correct data
+        const response = await axios.get(`${backendUrl}/properties/id/${id[4]}`);
+        const data=response.data
+        if (data.address) {
+          data.addressFormatted = formatAddress(data.address);
+        }
+        setPropertyDetail(data);
+        setImg(data.images[0].fileName); 
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -54,31 +63,40 @@ const PropertyDetails = () => {
     };
     property();
   }, []);
+
+  
   useEffect(() => {
-    // Include dependencies in the array, e.g., [InputTime]
     const updateCalendar = async () => {
+      // Check if any required value is null or undefined
+      if (!InputTime || !InputDate || !propertyDetail._id || !propertyDetail.addressFormatted) {
+        console.log("Required fields are missing, skipping the API request.");
+        return;
+      }
+  
       try {
         const address =
           "Property: " +
           propertyDetail.buildingName +
           " | Address: " +
-          propertyDetail.address;
-        console.log("", address);
+          propertyDetail.addressFormatted;
+        console.log("Address:", address);
+  
         const calendar = {
           endDate: InputDate + InputTime,
           propertyId: propertyDetail._id,
           event: address,
         };
-        console.log(calendar);
-        const response = await axios.post("/api/calendar", calendar);
+  
+        const response = await axios.post(`${backendUrl}/calendar`,calendar);
         console.log(response.data);
       } catch (error) {
         console.log(error);
       }
     };
+  
     updateCalendar();
   }, [InputTime, InputDate]);
-
+  
   // const handleSubmission = () => {
   //   const result = EventDetails.find((val) => val.Date === InputDate && val.Time === InputTime);
   //   if (Submit && !result) {
@@ -143,7 +161,7 @@ const PropertyDetails = () => {
                 <br />
                 in{"   "}
                 {propertyDetail.buildingName} {"   "}
-                {propertyDetail.address}
+                {propertyDetail.addressFormatted}
               </div>
               <div
                 className="List of Buttons"

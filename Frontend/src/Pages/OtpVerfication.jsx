@@ -10,12 +10,12 @@ function OTPVerification() {
   const handleOtpChange = (event) => {
     setOtp(event.target.value);
   };
-
+  const backendUrl=import.meta.env.VITE_BACKEND_URL
   const handleOtpSubmit = async (event) => {
     event.preventDefault();
     try {
       // Send the entered OTP to the server for verification
-      const response = await axios.post("/api/user/otp", {
+      const response = await axios.post(`${backendUrl}/otpverification`, {
         email_otp: otp,
       });
       if (response.data === "authenticated") {

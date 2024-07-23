@@ -15,6 +15,7 @@ function getDet(eventDetails) {
   Details = eventDetails;
 }
 
+
 const locales = {
   "en-US": import("date-fns/locale/en-US"), // Changed 'import' to 'require'
 };
@@ -120,11 +121,11 @@ function BigCalendar({ EventDetails }) {
   // }
   // console.log(...EventDetails)
   // console.log(`EventDetails `, typeof Details);
-
+  const backendUrl=import.meta.env.VITE_BACKEND_URL
   useEffect(() => {
     const getDates = async () => {
       try {
-        const response = await axios.get("/api/calendar");
+        const response = await axios.get(`${backendUrl}/calendar`);
         console.log("The data ", response.data);
         setEvents(...response.data); // Assuming that the data returned is an array
         // console.log("The date ",response.data[0].endDate.slice(0,14))

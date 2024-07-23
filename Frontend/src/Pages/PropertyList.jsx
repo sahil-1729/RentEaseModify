@@ -17,15 +17,10 @@ const PropertyList = () => {
     searchValue,
     setSearchValue,
     rentalValue,
-    setRentalValue,
     noOfBedrooms,
-    setNoOfBedrooms,
     ageOfConstruction,
-    setAgeOfConstruction,
     availableFor,
-    setAvailableFor,
-    furnishing,
-    setfurnishing,
+    furnishing
   } = useContext(FiltersContext);
   const [details, setDetails] = useState([]);
   const queryParams = {
@@ -41,22 +36,20 @@ const PropertyList = () => {
     noOfBedrooms: searchValue ? null : noOfBedrooms,
   };
   // console.log("", rentalValue);
-
+  const backendUrl=import.meta.env.VITE_BACKEND_URL
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/api/property", {
+        const response = await axios.get(`${backendUrl}/properties/`, {
           params: queryParams,
         });
 
-        console.log(response.data[0]);
-        setDetails(response.data[0]);
+        setDetails(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     fetchData();
-    // so that user doesn't get result prev searched result from empty string
     setSearchValue("");
   }, [
     rentalValue,
@@ -150,20 +143,25 @@ const PropertyList = () => {
               flexWrap: "wrap",
             }}
           >
-            {details.map((val) => (
+            {
+              details.map((val)=>{
+                const addressString = `${val.address.street}, ${val.address.area}, ${val.address.city}, ${val.address.state}, ${val.address.postalCode}, ${val.address.country}`;
+                const image=val.images[0].fileName  
+              return (
               <Card
-                rentalValue={val.rentalValue}
-                address={val.address}
-                noOfBedroom={val.noOfBedroom}
-                squareFeet={val.squareFeet}
-                description={val.description}
-                image={val.images}
-                _id={val._id}
-                flooring={val.flooring}
-                furnishing={val.furnishing}
-                ageOfConstruct={val.ageOfConstruction}
-              />
-            ))}
+              key={val._id}                  rentalValue={val.rentalValue}
+                  address={addressString}
+                  noOfBedroom={val.noOfBedroom}
+                  squareFeet={val.squareFeet}
+                  description={val.description}
+                  image={image}
+                  _id={val._id}
+                  flooring={val.flooring}
+                  furnishing={val.furnishing}
+                  ageOfConstruct={val.ageOfConstruction}
+                />
+              );
+              })}
           </div>
           <br />
         </div>
